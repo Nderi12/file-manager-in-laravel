@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -14,7 +13,30 @@ class File extends Model
 
     protected $table = 'cbs_file_manager';
 
-    protected $guarded = ['creation_date', 'update_date'];
+    protected $primaryKey = 'log_id';
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
+
+    protected $hidden = [
+        'id'
+    ];
+
+    protected $fillable = [
+        'name',
+        'file',
+        'log_id',
+        'type',
+        'extension',
+        'path',
+        'creation_date',
+        'update_date'
+    ];
+
+    public $timestamps = true;
+
+    protected $guarded = ['id', 'creation_date', 'update_date'];
 
     const CREATED_AT = 'creation_date';
 
@@ -33,14 +55,6 @@ class File extends Model
     {
         return 'log_id';
     }
-
-    protected $fillable = [
-        'name',
-        'type',
-        'extension',
-        'path',
-        'log_id'
-    ];
 
     public static $image_ext = ['jpg', 'jpeg', 'png', 'gif', 'jfif'];
     public static $audio_ext = ['mp3', 'ogg', 'mpga'];
